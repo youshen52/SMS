@@ -30,8 +30,8 @@ The Student Management System is a software application designed to facilitate t
 
 ### Features
 
-Input Validation: [SMS Screen Shot](https://github.com/youshen52/SMS/blob/main/images/validation.jpg)
-Populate Data: [SMS Screen Shot](https://github.com/youshen52/SMS/blob/main/images/populate.jpg)
+- Input Validation: [SMS Screen Shot](https://github.com/youshen52/SMS/blob/main/images/validation.jpg)
+- Populate Data: [SMS Screen Shot](https://github.com/youshen52/SMS/blob/main/images/populate.jpg)
 
 ### Built With
 
