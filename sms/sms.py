@@ -6,11 +6,11 @@ from collections import deque
 from typing import List, Union
 
 # Local modules
-from rss import RequestSubSystem
-from students.student_db import StudentDb
-from students.student_req import StudentReq
-from algorithm import bubble_sort, insertion_sort, selection_sort, merge_sort
-from validator import Validator
+from .rss import RequestSubSystem
+from .students.student_db import StudentDb
+from .students.student_req import StudentReq
+from .algorithm import bubble_sort, insertion_sort, selection_sort, merge_sort
+from .validator import Validator
 
 
 class StudentManagementSystem:
@@ -121,75 +121,51 @@ class StudentManagementSystem:
         return attr_list
 
     def bubble_sort_admin_no(self):
-        # List of admin_nos
         admin_nos = self._get_student_attr("admin_no")
         print(admin_nos)
-        # Perform Bubble sort and print passes
         print("\nPasses: \n")
         sorted_admin_nos = bubble_sort(admin_nos)
-        # List of sorted admin_nos
         sorted_students = [
             self.database.get_student_by_admin_no(admin_no)
             for admin_no in sorted_admin_nos
         ]
-        # Update database
         self.database.students = sorted_students
-        # Display students
         print("\nStudents sorted by AdminNo in descending order:\n")
         self.display_students()
 
     def insertion_sort_pem_group(self):
-        # List of tuple(pem groups, admin_nos)
         pem_groups_admin_nos = self._get_student_attr("pem_group", "admin_no")
-        # Perform Insertion sort and print passes
         print("\nPasses: \n")
         sorted_admin_nos = insertion_sort(pem_groups_admin_nos)
-        # List of sorted admin_nos
         sorted_students = [
             self.database.get_student_by_admin_no(admin_no)
             for admin_no in sorted_admin_nos
         ]
-        # Update database
         self.database.students = sorted_students
-        # Display students
         print("\nStudents sorted by PEM in ascending order:\n")
         self.display_students()
 
     def selection_sort_name(self):
-        # List of names
-        names = self.get_student_attr("pem_group")
-        # List of admin_nos
-        admin_nos = self.get_student_attr("admin_no")
-        # Zip names and admin_nos
-        names_admin_nos = list(zip(names, admin_nos))
-        # Perform Selection Sort and print passes
+        names_admin_nos = self._get_student_attr("name", "admin_no")
         print("\nPasses: \n")
         sorted_admin_nos = selection_sort(names_admin_nos)
-        # List of sorted admin_nos
         sorted_students = [
             self.database.get_student_by_admin_no(admin_no)
             for admin_no in sorted_admin_nos
         ]
-        # Update database
         self.database.students = sorted_students
-        # Display students
         print("\nStudents sorted by Name in ascending order:\n")
         self.display_students()
 
     def merge_sort_pem_group_admin_no(self):
-        # List of tuple(pem groups, admin_nos)
         pem_groups_admin_nos = self._get_student_attr("pem_group", "admin_no")
-        # Perform Insertion sort and print passes
         print("\nPasses: \n")
         sorted_admin_nos = merge_sort(pem_groups_admin_nos)
-        # List of sorted admin_nos
         sorted_students = [
             self.database.get_student_by_admin_no(admin_no)
             for _, admin_no in sorted_admin_nos
         ]
-        # Update database
         self.database.students = sorted_students
-        # Display students
         print("\nStudents sorted by PEM then Admin No in ascending order:\n")
         self.display_students()
 

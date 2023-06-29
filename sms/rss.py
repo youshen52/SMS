@@ -5,8 +5,8 @@ from pyfiglet import Figlet
 import os
 
 # Local Modules
-from students.student_req import StudentReq
-from validator import Validator
+from .students.student_req import StudentReq
+from .validator import Validator
 
 
 class RequestSubSystem:

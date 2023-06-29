@@ -1,6 +1,3 @@
-from typing import List, Optional
-
-
 class Student:
     def __init__(
         self: str,

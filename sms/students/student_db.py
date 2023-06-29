@@ -1,4 +1,4 @@
-from students.student import Student
+from .student import Student
 from typing import List
 
 
