@@ -1,10 +1,10 @@
-# NEGCO2
+# SMS
 
 <details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About NEGCO2</a>
+      <a href="#about-the-project">About SMS</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
