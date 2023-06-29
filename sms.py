@@ -3,6 +3,7 @@ from termcolor import colored
 from pyfiglet import Figlet
 from tabulate import tabulate
 from collections import deque
+from typing import List, Union
 
 # Local modules
 from rss import RequestSubSystem
@@ -107,9 +108,22 @@ class StudentManagementSystem:
         print(tabulate(rows, headers=headers, tablefmt="grid"))
         print("\n")
 
+    def _get_student_attr(self, *attrs: str) -> Union[List[str], List[tuple]]:
+        if len(attrs) == 1:
+            attr_list = [
+                getattr(student, attrs[0]) for student in self.database.students
+            ]
+        else:
+            attr_list = []
+            for student in self.database.students:
+                student_attrs = tuple(getattr(student, attr) for attr in attrs)
+                attr_list.append(student_attrs)
+        return attr_list
+
     def bubble_sort_admin_no(self):
         # List of admin_nos
-        admin_nos = [student.admin_no for student in self.database.students]
+        admin_nos = self._get_student_attr("admin_no")
+        print(admin_nos)
         # Perform Bubble sort and print passes
         print("\nPasses: \n")
         sorted_admin_nos = bubble_sort(admin_nos)
@@ -125,12 +139,8 @@ class StudentManagementSystem:
         self.display_students()
 
     def insertion_sort_pem_group(self):
-        # List of pem groups
-        pem_groups = [student.pem_group for student in self.database.students]
-        # List of admin_nos
-        admin_nos = [student.admin_no for student in self.database.students]
-        # Zip pem groups and admin_nos
-        pem_groups_admin_nos = list(zip(pem_groups, admin_nos))
+        # List of tuple(pem groups, admin_nos)
+        pem_groups_admin_nos = self._get_student_attr("pem_group", "admin_no")
         # Perform Insertion sort and print passes
         print("\nPasses: \n")
         sorted_admin_nos = insertion_sort(pem_groups_admin_nos)
@@ -147,9 +157,9 @@ class StudentManagementSystem:
 
     def selection_sort_name(self):
         # List of names
-        names = [student.name for student in self.database.students]
+        names = self.get_student_attr("pem_group")
         # List of admin_nos
-        admin_nos = [student.admin_no for student in self.database.students]
+        admin_nos = self.get_student_attr("admin_no")
         # Zip names and admin_nos
         names_admin_nos = list(zip(names, admin_nos))
         # Perform Selection Sort and print passes
@@ -167,7 +177,21 @@ class StudentManagementSystem:
         self.display_students()
 
     def merge_sort_pem_group_admin_no(self):
-        pass
+        # List of tuple(pem groups, admin_nos)
+        pem_groups_admin_nos = self._get_student_attr("pem_group", "admin_no")
+        # Perform Insertion sort and print passes
+        print("\nPasses: \n")
+        sorted_admin_nos = merge_sort(pem_groups_admin_nos)
+        # List of sorted admin_nos
+        sorted_students = [
+            self.database.get_student_by_admin_no(admin_no)
+            for _, admin_no in sorted_admin_nos
+        ]
+        # Update database
+        self.database.students = sorted_students
+        # Display students
+        print("\nStudents sorted by PEM then Admin No in ascending order:\n")
+        self.display_students()
 
     def enter_student_request(self):
         self.request_subsystem.run()

@@ -45,7 +45,7 @@ def selection_sort(arr: List[tuple]) -> List[str]:
     return [admin_no for _, admin_no in arr]
 
 
-def merge_sort(arr: List[int]) -> List[int]:
+def merge_sort(arr: List[tuple]) -> List[tuple]:
     if len(arr) <= 1:
         return arr
 
@@ -59,18 +59,25 @@ def merge_sort(arr: List[int]) -> List[int]:
     return _merge(left, right)
 
 
-def _merge(left: List[int], right: List[int]) -> List[int]:
+def _merge(left: List[tuple], right: List[tuple]) -> List[tuple]:
     merged = []
     left_index = 0
     right_index = 0
 
     while left_index < len(left) and right_index < len(right):
-        if left[left_index] <= right[right_index]:
+        if left[left_index][0] < right[right_index][0]:
             merged.append(left[left_index])
             left_index += 1
-        else:
+        elif left[left_index][0] > right[right_index][0]:
             merged.append(right[right_index])
             right_index += 1
+        else:
+            if left[left_index][1] <= right[right_index][1]:
+                merged.append(left[left_index])
+                left_index += 1
+            else:
+                merged.append(right[right_index])
+                right_index += 1
 
     while left_index < len(left):
         merged.append(left[left_index])
