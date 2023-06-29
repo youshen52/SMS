@@ -2,17 +2,20 @@
 from termcolor import colored
 from pyfiglet import Figlet
 from tabulate import tabulate
-import abc
+from collections import deque
 
 # Local modules
+from rss import RequestSubSystem
 from students.student_db import StudentDb
-from algorithm import bubble_sort, insertion_sort
+from students.student_req import StudentReq
+from algorithm import bubble_sort, insertion_sort, selection_sort, merge_sort
 from validator import Validator
 
 
 class StudentManagementSystem:
     def __init__(self):
         self.database = StudentDb()
+        self.request_subsystem = RequestSubSystem(self.database)
 
     @staticmethod
     def print_title():
@@ -26,7 +29,8 @@ class StudentManagementSystem:
         print("c. Sort students by AdminNo in descending order")
         print("d. Sort students' PEMGroup in ascending order")
         print("e. Populate student data")
-        print("f. Exit the program")
+        print("f. Enter Student's Request")
+        print("g. Exit the program")
 
     def choice_handler(self, choice):
         match choice:
@@ -35,32 +39,18 @@ class StudentManagementSystem:
             case "b":
                 self.add_student()
             case "c":
-                self.sort_admin_no()
+                self.bubble_sort_admin_no()
             case "d":
-                self.sort_pem_group()
+                self.insertion_sort_pem_group()
             case "e":
                 self.populate_data()
             case "f":
+                self.enter_student_request()
+            case "g":
                 print("Exiting the program...")
                 return -1
             case _:
                 print(colored("Invalid choice. Please choose from a to f", "red"))
-
-    def display_students(self):
-        headers = ["Name", "Email", "Year", "AdminNo", "PEMGroup"]
-        rows = []
-        for student in self.database.students:
-            rows.append(
-                [
-                    student.name,
-                    student.email,
-                    student.year,
-                    student.admin_no,
-                    student.pem_group,
-                ]
-            )
-        print(tabulate(rows, headers=headers, tablefmt="grid"))
-        print("\n")
 
     def add_student(self):
         while True:
@@ -95,7 +85,23 @@ class StudentManagementSystem:
         except Exception as e:
             print(colored(str(e), "red", attrs=["reverse", "blink"]))
 
-    def sort_admin_no(self):
+    def display_students(self):
+        headers = ["Name", "Email", "Year", "AdminNo", "PEMGroup"]
+        rows = []
+        for student in self.database.students:
+            rows.append(
+                [
+                    student.name,
+                    student.email,
+                    student.year,
+                    student.admin_no,
+                    student.pem_group,
+                ]
+            )
+        print(tabulate(rows, headers=headers, tablefmt="grid"))
+        print("\n")
+
+    def bubble_sort_admin_no(self):
         # List of admin_nos
         admin_nos = [student.admin_no for student in self.database.students]
         # Perform Bubble sort and print passes
@@ -112,7 +118,7 @@ class StudentManagementSystem:
         print("\nStudents sorted by AdminNo in descending order:\n")
         self.display_students()
 
-    def sort_pem_group(self):
+    def insertion_sort_pem_group(self):
         # List of pem groups
         pem_groups = [student.pem_group for student in self.database.students]
         # List of admin_nos
@@ -132,6 +138,15 @@ class StudentManagementSystem:
         # Display students
         print("\nStudents sorted by PEM in ascending order:\n")
         self.display_students()
+
+    def selection_sort_name(self):
+        pass
+
+    def merge_sort_pem_group_admin_no(self):
+        pass
+
+    def enter_student_request(self):
+        self.request_subsystem.run()
 
     def populate_data(self):
         self.database.purge_students()
@@ -163,14 +178,9 @@ class StudentManagementSystem:
             self.print_title()
             while True:
                 self.print_menu()
-                choice = input("\nEnter your choice: ")
+                choice = input("\nPlease select one: ")
                 if self.choice_handler(choice) == -1:
                     break
 
         except KeyboardInterrupt:
             print("\nExiting the program...")
-
-
-if __name__ == "__main__":
-    sms = StudentManagementSystem()
-    sms.run()
