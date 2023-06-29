@@ -24,7 +24,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/youshen52/SMS/blob/main/images/menu.jpg)
 
 The Student Management System is a software application designed to facilitate the management and organization of student information within an educational institution. It serves as a comprehensive platform for storing, retrieving, and managing student data, enabling efficient administration and easy access to relevant information.
 
@@ -66,7 +66,7 @@ _Below is an example of how to install and set up SMS._
 
 1. Run `run.py`
 
-_For more examples, please refer to the [Image](Image)_
+_For more examples, please refer to the [Image](https://github.com/youshen52/SMS/blob/main/images/menu.jpg)_
 
 ## Contributing
 
