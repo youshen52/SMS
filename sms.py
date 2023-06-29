@@ -28,9 +28,11 @@ class StudentManagementSystem:
         print("b. Add a new student record")
         print("c. Sort students by AdminNo in descending order")
         print("d. Sort students' PEMGroup in ascending order")
-        print("e. Populate student data")
-        print("f. Enter Student's Request")
-        print("g. Exit the program")
+        print("e. Sort students' Name in ascending order")
+        print("f. Sort students by PEM Group then Admin No in ascending order")
+        print("g. Populate student data")
+        print("h. Enter Student's Request")
+        print("i. Exit the program")
 
     def choice_handler(self, choice):
         match choice:
@@ -43,10 +45,14 @@ class StudentManagementSystem:
             case "d":
                 self.insertion_sort_pem_group()
             case "e":
-                self.populate_data()
+                self.selection_sort_name()
             case "f":
-                self.enter_student_request()
+                self.merge_sort_pem_group_admin_no()
             case "g":
+                self.populate_data()
+            case "h":
+                self.enter_student_request()
+            case "i":
                 print("Exiting the program...")
                 return -1
             case _:
@@ -70,12 +76,12 @@ class StudentManagementSystem:
             print(colored("Invalid email", "red"))
         while True:
             year: str = input("Enter Year admitted: ")
-            if Validator.validate_year(email):
+            if Validator.validate_year(year):
                 break
             print(colored("Invalid year", "red"))
         while True:
             pem_group: str = input("Enter PEMGroup: ")
-            if Validator.validate_pem_group(email):
+            if Validator.validate_pem_group(pem_group):
                 break
             print(colored("Invalid PEMGroup", "red"))
 
@@ -140,7 +146,25 @@ class StudentManagementSystem:
         self.display_students()
 
     def selection_sort_name(self):
-        pass
+        # List of names
+        names = [student.name for student in self.database.students]
+        # List of admin_nos
+        admin_nos = [student.admin_no for student in self.database.students]
+        # Zip names and admin_nos
+        names_admin_nos = list(zip(names, admin_nos))
+        # Perform Selection Sort and print passes
+        print("\nPasses: \n")
+        sorted_admin_nos = selection_sort(names_admin_nos)
+        # List of sorted admin_nos
+        sorted_students = [
+            self.database.get_student_by_admin_no(admin_no)
+            for admin_no in sorted_admin_nos
+        ]
+        # Update database
+        self.database.students = sorted_students
+        # Display students
+        print("\nStudents sorted by Name in ascending order:\n")
+        self.display_students()
 
     def merge_sort_pem_group_admin_no(self):
         pass

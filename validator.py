@@ -1,4 +1,5 @@
 import re
+import datetime
 
 
 class Validator:
@@ -25,7 +26,7 @@ class Validator:
     @staticmethod
     def validate_pem_group(pem_group: str) -> bool:
         pem_group_pattern = r"[A-Za-z]{2,3}[0-9]{3,4}"
-        return not Validator.validate_pattern(pem_group_pattern, pem_group)
+        return Validator.validate_pattern(pem_group_pattern, pem_group)
 
     @staticmethod
     def validate_length(x: str) -> bool:
@@ -35,6 +36,7 @@ class Validator:
     def validate_year(year: str) -> bool:
         try:
             year = int(year)
-            return not (1000 < year < 2024)
+            current_year = datetime.datetime.now().year
+            return 1000 <= year <= current_year
         except ValueError:
-            return True
+            return False

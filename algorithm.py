@@ -30,19 +30,19 @@ def insertion_sort(arr: List[tuple]) -> List[str]:
     return [admin_no for _, admin_no in arr]
 
 
-def selection_sort(arr: list[str]) -> List[str]:
+def selection_sort(arr: List[tuple]) -> List[str]:
     n = len(arr)
 
     for i in range(n):
         min_index = i
 
         for j in range(i + 1, n):
-            if arr[j] < arr[min_index]:
+            if arr[j][0] < arr[min_index][0]:
                 min_index = j
         (arr[i], arr[min_index]) = (arr[min_index], arr[i])
+        print(f"Pass {i}: {[admin_no for _, admin_no in arr]}")
 
-
-from typing import List
+    return [admin_no for _, admin_no in arr]
 
 
 def merge_sort(arr: List[int]) -> List[int]:
