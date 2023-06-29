@@ -1,4 +1,4 @@
-# SMS
+# Student Managment System
 
 <details>
   <summary>Table of Contents</summary>
