@@ -24,7 +24,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/youshen52/SMS/blob/main/images/menu.jpg)
+[SMS Screen Shot][SMS](https://github.com/youshen52/SMS/blob/main/images/menu.jpg)
 
 The Student Management System is a software application designed to facilitate the management and organization of student information within an educational institution. It serves as a comprehensive platform for storing, retrieving, and managing student data, enabling efficient administration and easy access to relevant information.
 
