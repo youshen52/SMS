@@ -6,6 +6,7 @@
     <li>
       <a href="#about-the-project">About SMS</a>
       <ul>
+        <li><a href="#features">Features</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
