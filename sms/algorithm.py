@@ -88,3 +88,40 @@ def _merge(left: List[tuple], right: List[tuple]) -> List[tuple]:
         right_index += 1
 
     return merged
+
+
+# Sample student data (replace this with your actual student data)
+students_data = [
+    {"id": 1, "admin": "123456D", "name": "Jon", "age": 18},
+    {"id": 2, "admin": "232345D", "name": "John", "age": 19},
+    {"id": 3, "admin": "123456A", "name": "Ocean", "age": 20},
+    {"id": 4, "admin": "123456A", "name": "hello", "age": 21},
+]
+
+
+def print_students_recursive(students, n, current_row=0):
+    if not students:
+        return
+
+    students_in_row = students[:n]
+    for student in students_in_row:
+        print(f"id: {student['id']}", end="             ")
+    print()
+
+    for student in students_in_row:
+        print(f"admin: {student['admin']}", end="    ")
+    print()
+
+    for student in students_in_row:
+        print(f"name: {student['name']}", end="         ")
+    print()
+
+    for student in students_in_row:
+        print(f"age: {student['age']}", end="           ")
+
+    print()
+    print()
+
+    print_students_recursive(students[n:], n, current_row + 1)
+
+
