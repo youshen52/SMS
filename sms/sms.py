@@ -25,35 +25,40 @@ class StudentManagementSystem:
 
     @staticmethod
     def print_menu():
-        print("a. Display all students' records")
-        print("b. Add a new student record")
-        print("c. Sort students by AdminNo in descending order")
-        print("d. Sort students' PEMGroup in ascending order")
-        print("e. Sort students' Name in ascending order")
-        print("f. Sort students by PEM Group then Admin No in ascending order")
-        print("g. Populate student data")
-        print("h. Enter Student's Request")
-        print("i. Exit the program")
+        print("1. Display all students' records")
+        print("2. Add a new student record")
+        print("3. Sort students by AdminNo via Bubble Sort in descending order")
+        print("4. Sort students' PEMGroup via Insertion Sort in ascending order")
+        print("5. Sort students' Name via Selection Sort in ascending order")
+        print(
+            "6. Sort students via Merge sort on PEM Group then Admin No in ascending order"
+        )
+        print("7. Enter Student's Request")
+        print("8. Set number of records per row to display ")
+        print("9. Populate student data")
+        print("10. Exit the program")
 
     def choice_handler(self, choice):
         match choice:
-            case "a":
+            case "1":
                 self.display_students()
-            case "b":
+            case "2":
                 self.add_student()
-            case "c":
+            case "3":
                 self.bubble_sort_admin_no()
-            case "d":
+            case "4":
                 self.insertion_sort_pem_group()
-            case "e":
+            case "5":
                 self.selection_sort_name()
-            case "f":
+            case "6":
                 self.merge_sort_pem_group_admin_no()
-            case "g":
-                self.populate_data()
-            case "h":
+            case "7":
                 self.enter_student_request()
-            case "i":
+            case "8":
+                self.display_students()
+            case "9":
+                self.populate_data()
+            case "10":
                 print("Exiting the program...")
                 return -1
             case _:
@@ -92,8 +97,10 @@ class StudentManagementSystem:
         except Exception as e:
             print(colored(str(e), "red", attrs=["reverse", "blink"]))
 
-    def display_students(self):
+    def display_students(self, columns=1):
         headers = ["Name", "Email", "Year", "AdminNo", "PEMGroup"]
+        for column in columns:
+            print("columns")
         rows = []
         for student in self.database.students:
             rows.append(
